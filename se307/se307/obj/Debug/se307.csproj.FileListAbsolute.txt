@@ -1,0 +1,12 @@
+C:\Users\alcck\source\repos\se307\se307\obj\Debug\se307.csproj.AssemblyReference.cache
+C:\Users\alcck\source\repos\se307\se307\obj\Debug\se307.Properties.Resources.resources
+C:\Users\alcck\source\repos\se307\se307\obj\Debug\se307.csproj.GenerateResource.cache
+C:\Users\alcck\source\repos\se307\se307\obj\Debug\se307.csproj.CoreCompileInputs.cache
+C:\Users\alcck\source\repos\se307\se307\bin\Debug\se307.exe.config
+C:\Users\alcck\source\repos\se307\se307\bin\Debug\se307.exe
+C:\Users\alcck\source\repos\se307\se307\bin\Debug\se307.pdb
+C:\Users\alcck\source\repos\se307\se307\obj\Debug\se307.exe
+C:\Users\alcck\source\repos\se307\se307\obj\Debug\se307.pdb
+C:\Users\alcck\source\repos\se307\se307\obj\Debug\se307.MainPage.resources
+C:\Users\alcck\source\repos\se307\se307\obj\Debug\se307.ThesisSubmissionForm.resources
+C:\Users\alcck\source\repos\se307\se307\obj\Debug\se307.ThesisSearchForm.resources
