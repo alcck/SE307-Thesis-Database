@@ -20,7 +20,7 @@ namespace se307
         public ThesisSubmissionForm(MainPage mainPage)
         {
             InitializeComponent();
-            this.mainPage = mainPage; 
+            this.mainPage = mainPage;
         }
         private void ThesisSubmissionForm_Load(object sender, EventArgs e)
         {
@@ -34,62 +34,79 @@ namespace se307
         }
 
         private void submitBtn_Click(object sender, EventArgs e)
-        
         {
-            string title = titleBox.Text;
-            string abstractText = abstractBox.Text;
-            int year = int.Parse(yearBox.Text);
-            string type = typeBox.Text;
-            int pages = int.Parse(pagesBox.Text);
-            string language = langBox.Text;
-            DateTime subdate = DateTime.Parse(subDateBox.Text);
+            if (int.TryParse(pagesBox.Text, out int pages) && DateTime.TryParse(subDateBox.Text, out DateTime subDate))
+            {
+                using (SqlConnection connection = new SqlConnection(ConnectionString))
+                {
+                    string language = langBox.Text;
+                    string title = titleBox.Text;
+                    string abstractText = abstractBox.Text;
+                    int year;
 
-            InsertThesis(title, abstractText, year, type);
+                    if (!int.TryParse(yearBox.Text, out year))
+                    {
+                        MessageBox.Show("Invalid year format. Please enter a valid year.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
 
-            mainPage.LoadThesisInfo();
+                    string type = typeBox.Text;
 
-            this.Close();
+                    string getMaxThesisNoQuery = "SELECT MAX(ThesisNo) FROM Thesis";
+                    using (SqlCommand getMaxThesisNoCmd = new SqlCommand(getMaxThesisNoQuery, connection))
+                    {
+                        connection.Open();
+                        object result = getMaxThesisNoCmd.ExecuteScalar();
+                        int maxThesisNo = (result == DBNull.Value) ? 0 : Convert.ToInt32(result);
+
+                        int nextThesisNo = maxThesisNo + 1;
+
+                        string insertQuery = "INSERT INTO Thesis (ThesisNo, Title, Abstract, Year, Type, Pages, Language, SubDate) VALUES (@ThesisNo, @Title, @Abstract, @Year, @Type, @Pages, @Language, @SubDate)";
+                        using (SqlCommand insertCmd = new SqlCommand(insertQuery, connection))
+                        {
+
+                            insertCmd.Parameters.AddWithValue("@ThesisNo", nextThesisNo);
+                            insertCmd.Parameters.AddWithValue("@Title", title);
+                            insertCmd.Parameters.AddWithValue("@Abstract", abstractText);
+                            insertCmd.Parameters.AddWithValue("@Year", year);
+                            insertCmd.Parameters.AddWithValue("@Type", type);
+                            insertCmd.Parameters.AddWithValue("@Pages", pages);
+                            insertCmd.Parameters.AddWithValue("@Language", language);
+                            insertCmd.Parameters.AddWithValue("@SubDate", subDate);
+
+                            int rowsAffected = insertCmd.ExecuteNonQuery();
+                            if (rowsAffected > 0)
+                            {
+                                MessageBox.Show("Thesis submitted successfully.");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Error submitting thesis.");
+                            }
+                        }
+                    }
+
+
+
+                    mainPage.LoadThesisInfo();
+
+                    this.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Invalid input. Please check your input values.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
         private void InsertThesis(string title, string abstractText, int year, string type)
         {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
-            {
-                connection.Open();
-
-                string getMaxThesisNoQuery = "SELECT MAX(ThesisNo) FROM Thesis";
-                using (SqlCommand getMaxThesisNoCmd = new SqlCommand(getMaxThesisNoQuery, connection))
-                {
-                    object result = getMaxThesisNoCmd.ExecuteScalar();
-                    int maxThesisNo = (result == DBNull.Value) ? 0 : Convert.ToInt32(result);
-
-                    int nextThesisNo = maxThesisNo + 1;
-
-                    string insertQuery = "INSERT INTO Thesis (ThesisNo, Title, Abstract, Year, Type) VALUES (@ThesisNo, @Title, @Abstract, @Year, @Type)";
-                    using (SqlCommand insertCmd = new SqlCommand(insertQuery, connection))
-                    {
-                        insertCmd.Parameters.AddWithValue("@ThesisNo", nextThesisNo);
-                        insertCmd.Parameters.AddWithValue("@Title", title);
-                        insertCmd.Parameters.AddWithValue("@Abstract", abstractText);
-                        insertCmd.Parameters.AddWithValue("@Year", year);
-                        insertCmd.Parameters.AddWithValue("@Type", type);
-
-                        int rowsAffected = insertCmd.ExecuteNonQuery();
-                        if (rowsAffected > 0)
-                        {
-                            MessageBox.Show("Thesis submitted successfully.");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Error submitting thesis.");
-                        }
-                    }
-                }
-            }
         }
 
         private void clearBtn_Click(object sender, EventArgs e)
@@ -112,5 +129,11 @@ namespace se307
         {
 
         }
+
+        private void pagesBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
+

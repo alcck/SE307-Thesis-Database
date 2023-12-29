@@ -174,6 +174,7 @@
             this.pagesBox.Name = "pagesBox";
             this.pagesBox.Size = new System.Drawing.Size(460, 22);
             this.pagesBox.TabIndex = 20;
+            this.pagesBox.TextChanged += new System.EventHandler(this.pagesBox_TextChanged);
             // 
             // clearBtn
             // 

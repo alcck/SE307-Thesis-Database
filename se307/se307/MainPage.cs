@@ -37,7 +37,19 @@ namespace se307
                         {
                             string title = reader["Title"].ToString();
                             string abstractText = reader["Abstract"].ToString();
-                            int year = Convert.ToInt32(reader["Year"]);
+                          
+                            int year;
+
+
+                            if (reader["Year"] != DBNull.Value)
+                            {
+                                year = Convert.ToInt32(reader["Year"]);
+                            }
+                            else
+                            {
+                                
+                                year = 0; 
+                            }
                             string type = reader["Type"].ToString();
                             int pages;
 
@@ -154,7 +166,9 @@ namespace se307
 
         private void updateThesisBtn_Click(object sender, EventArgs e)
         {
-
+            UpdateThesisForm updateForm = new UpdateThesisForm();
+            updateForm.ShowDialog();
+            LoadThesisInfo();
         }
     }
 }

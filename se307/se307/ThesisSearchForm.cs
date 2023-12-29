@@ -62,11 +62,6 @@ namespace se307
         {
 
         }
-
-        private void SearchBtn_Click(object sender, EventArgs e)
-        {
-            PerformSearch();
-        }
         private void searchBtn_Click(object sender, EventArgs e)
         {
             PerformSearch();
@@ -118,7 +113,7 @@ namespace se307
                         query += $" AND ThesisNo = {searchTerm}";
                         break;
                     case "Year":
-                        if (int.TryParse(searchTerm, out int year))
+                        if (int.TryParse(yearBox.Text.Trim(), out int year))
                         {
                             query += $" AND Year = {year}";
                         }
@@ -128,6 +123,8 @@ namespace se307
                             return;
                         }
                         break;
+
+
                 }
             }
 
@@ -167,6 +164,11 @@ namespace se307
         }
 
         private void searchInBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void yearBox_TextChanged(object sender, EventArgs e)
         {
 
         }

@@ -92,7 +92,7 @@
             // updateThesisBtn
             // 
             this.updateThesisBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.updateThesisBtn.Location = new System.Drawing.Point(330, 101);
+            this.updateThesisBtn.Location = new System.Drawing.Point(330, 107);
             this.updateThesisBtn.Name = "updateThesisBtn";
             this.updateThesisBtn.Size = new System.Drawing.Size(264, 67);
             this.updateThesisBtn.TabIndex = 9;

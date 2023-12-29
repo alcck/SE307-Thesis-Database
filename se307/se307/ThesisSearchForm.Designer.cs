@@ -139,6 +139,7 @@
             this.yearBox.Name = "yearBox";
             this.yearBox.Size = new System.Drawing.Size(110, 22);
             this.yearBox.TabIndex = 25;
+            this.yearBox.TextChanged += new System.EventHandler(this.yearBox_TextChanged);
             // 
             // searchInBox
             // 

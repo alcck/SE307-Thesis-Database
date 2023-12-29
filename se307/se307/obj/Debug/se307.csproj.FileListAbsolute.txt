@@ -10,3 +10,4 @@ C:\Users\alcck\source\repos\se307\se307\obj\Debug\se307.pdb
 C:\Users\alcck\source\repos\se307\se307\obj\Debug\se307.MainPage.resources
 C:\Users\alcck\source\repos\se307\se307\obj\Debug\se307.ThesisSubmissionForm.resources
 C:\Users\alcck\source\repos\se307\se307\obj\Debug\se307.ThesisSearchForm.resources
+C:\Users\alcck\source\repos\se307\se307\obj\Debug\se307.UpdateThesisForm.resources
